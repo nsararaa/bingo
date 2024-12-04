@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -92,6 +94,7 @@ public class playBingo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_bingo);
 
@@ -153,7 +156,7 @@ public class playBingo extends AppCompatActivity {
             }
         }
     }
-
+    int hit_one =0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -170,7 +173,9 @@ public class playBingo extends AppCompatActivity {
                 lastClickedTextView.invalidate();
             }
 
-            if (isBINGO()) {
+
+            if (isBINGO() && hit_one == 0) {
+                hit_one++;
                 Intent i = new Intent(playBingo.this, BINGOhit.class);
                 startActivity(i);
             }

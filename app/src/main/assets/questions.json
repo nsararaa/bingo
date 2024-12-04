@@ -48,5 +48,110 @@
         "questionText": "Who is the author of 'Harry Potter'?",
         "options": ["J.K. Rowling", "George R.R. Martin", "J.R.R. Tolkien", "Stephen King"],
         "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the main function of the CPU in a computer?",
+        "options": ["Store data", "Process data", "Input data", "Output data"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "What is the square root of 64?",
+        "options": ["6", "7", "8", "9"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Which gas do plants absorb from the atmosphere?",
+        "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "What is the atomic number of oxygen?",
+        "options": ["8", "6", "10", "12"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What does the 'www' stand for in a website's URL?",
+        "options": ["World Wide Web", "Wide World Web", "Web World Wide", "World Web Wide"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which programming language is known as the 'mother of all languages'?",
+        "options": ["C", "Java", "Fortran", "Assembly"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Who invented the telephone?",
+        "options": ["Alexander Graham Bell", "Nikola Tesla", "Thomas Edison", "Guglielmo Marconi"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which planet is closest to the sun?",
+        "options": ["Mercury", "Venus", "Earth", "Mars"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the primary function of the mitochondria in a cell?",
+        "options": ["Protein synthesis", "Energy production", "Cell division", "Waste removal"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "Which of the following is an example of a non-renewable resource?",
+        "options": ["Wind", "Solar", "Coal", "Biomass"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Which of the following is a valid HTML tag?",
+        "options": ["<h1>", "<header>", "<head>", "<section>"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Who painted the Mona Lisa?",
+        "options": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the capital of Japan?",
+        "options": ["Seoul", "Beijing", "Tokyo", "Kyoto"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Which element is represented by the symbol 'Na'?",
+        "options": ["Nitrogen", "Neon", "Sodium", "Nickel"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Which of these is an example of an object-oriented programming language?",
+        "options": ["Java", "Fortran", "Pascal", "Bash"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the chemical formula for methane?",
+        "options": ["CH4", "C2H6", "CO2", "CH3OH"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "In which year did the first man land on the moon?",
+        "options": ["1969", "1959", "1979", "1989"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which of the following is an example of a search engine?",
+        "options": ["Google", "Facebook", "Instagram", "LinkedIn"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which country is the largest by area?",
+        "options": ["Russia", "United States", "Canada", "China"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the currency of Japan?",
+        "options": ["Yuan", "Won", "Yen", "Ringgit"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Which element is the most abundant in the Earth's crust?",
+        "options": ["Oxygen", "Silicon", "Aluminum", "Iron"],
+        "correctAnswerIndex": 0
     }
 ]

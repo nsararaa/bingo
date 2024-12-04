@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".inputBingo"
-    android:background="#253237">
+    android:background="#253237"
+    android:paddingTop="32dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        android:gravity="center_horizontal">
-
+        android:gravity="center_horizontal"
+        android:paddingTop="32dp">
         <!-- Header Title
         <TextView
             android:id="@+id/headerTitle"

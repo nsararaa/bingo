@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".playBingo"
-    android:background="#253237">
+    android:background="#253237"
+    android:paddingTop="32dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
