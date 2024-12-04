@@ -1,0 +1,12 @@
+[
+    {
+        "questionText": "What is the capital of France?",
+        "options": ["Paris", "London", "Berlin", "Madrid"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which data structure uses LIFO?",
+        "options": ["Stack", "Queue", "Tree", "Graph"],
+        "correctAnswerIndex": 0
+    }
+]

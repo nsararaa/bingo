@@ -1,3 +1,5 @@
+package com.example.bingo;
+
 public class Question {
     private String questionText;
     private String[] options;

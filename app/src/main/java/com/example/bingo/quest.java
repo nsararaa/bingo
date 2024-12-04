@@ -1,6 +1,7 @@
 package com.example.bingo;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,26 +13,36 @@ public class quest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest);
 
-
-        String inputNumber = getIntent().getStringExtra("inputNumber");
-
+        String questionTextStr = getIntent().getStringExtra("questionText");
+        String[] options = getIntent().getStringArrayExtra("options");
+        int correctAnswerIndex = getIntent().getIntExtra("correctAnswerIndex", -1);
 
         TextView questionText = findViewById(R.id.questionText);
+        questionText.setText(questionTextStr);
 
-        String question = "What is the capital of France? ";
-        questionText.setText("Question" +inputNumber + ": "+ question);
+        Button[] optionButtons = {
+                findViewById(R.id.option1),
+                findViewById(R.id.option2),
+                findViewById(R.id.option3),
+                findViewById(R.id.option4)
+        };
 
-
-        Button option1 = findViewById(R.id.option1);
-        Button option2 = findViewById(R.id.option2);
-        Button option3 = findViewById(R.id.option3);
-        Button option4 = findViewById(R.id.option4);
-
-
-        option1.setOnClickListener(v -> showToast("Correct!"));
-        option2.setOnClickListener(v -> showToast("Incorrect!"));
-        option3.setOnClickListener(v -> showToast("Incorrect!"));
-        option4.setOnClickListener(v -> showToast("Incorrect!"));
+        for (int i = 0; i < optionButtons.length; i++) {
+            if (i < options.length) {
+                optionButtons[i].setText(options[i]);
+                int finalI = i;
+                optionButtons[i].setOnClickListener(v -> {
+                    if (finalI == correctAnswerIndex) {
+                        showToast("Correct!");
+                        finish();
+                    } else {
+                        showToast("Incorrect!");
+                    }
+                });
+            } else {
+                optionButtons[i].setVisibility(View.GONE);//if less than 4 options (shouldnt go into this)
+            }
+        }
     }
 
     //toast for correct/incorrect

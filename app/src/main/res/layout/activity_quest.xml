@@ -7,7 +7,7 @@
     android:padding="16dp"
     android:gravity="center">
 
-    <!-- TextView for the question -->
+
     <TextView
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:textStyle="bold" />
 
-    <!-- Buttons for options -->
+
     <Button
         android:id="@+id/option1"
         android:layout_width="match_parent"
