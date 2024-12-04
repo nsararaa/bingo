@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Container for "BINGO" letters -->
+
     <GridLayout
         android:id="@+id/lettersLayout"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:paddingBottom="8dp">
     </GridLayout>
 
-    <!-- GridLayout for the bingo grid -->
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"

@@ -23,12 +23,12 @@ public class inputBingo extends AppCompatActivity {
 
         EditText[][] editTexts = new EditText[5][5];
 
-        // Create the 5x5 grid of EditTexts
+
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 EditText editText = new EditText(this);
 
-                // Set layout parameters
+
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
@@ -37,7 +37,7 @@ public class inputBingo extends AppCompatActivity {
                 params.setMargins(8, 8, 8, 8);
                 editText.setLayoutParams(params);
 
-                // Set properties for EditText
+                // properties of edit txt
                 editText.setHint("Num");
                 editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 editText.setGravity(android.view.Gravity.CENTER);
@@ -51,11 +51,11 @@ public class inputBingo extends AppCompatActivity {
             }
         }
 
-        // Set the button's click listener
+        //VALIDATION FOR DUP NUMBERS MISSING!!!!!!!
         setGridButton.setOnClickListener(v -> {
             boolean validInput = true;
 
-            // Store input in the 2D array
+            //input vals stored
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
                     String input = editTexts[row][col].getText().toString();

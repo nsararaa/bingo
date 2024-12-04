@@ -16,15 +16,15 @@ public class playBingo extends AppCompatActivity {
 
         GridLayout gridLayout = findViewById(R.id.gridLayout);
 
-        // Get the numbers from the intent
+        //numbers passed from intent 1 (input bingo)
         String[][] numbers = (String[][]) getIntent().getSerializableExtra("numbers");
 
-        // Create the 5x5 grid of TextViews
+        //grid layout
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 TextView textView = new TextView(this);
 
-                // Set layout parameters
+                //layout//ui parameters
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
@@ -33,7 +33,7 @@ public class playBingo extends AppCompatActivity {
                 params.setMargins(8, 8, 8, 8);
                 textView.setLayoutParams(params);
 
-                // Set properties for TextView
+                //txt view properties
                 textView.setText(numbers[row][col]);
                 textView.setGravity(android.view.Gravity.CENTER);
                 textView.setBackgroundResource(R.drawable.round);
@@ -41,12 +41,12 @@ public class playBingo extends AppCompatActivity {
                 textView.setTextSize(16);
                 textView.setPadding(16, 16, 16, 16);
 
-                // Set click listener
+
                 textView.setOnClickListener(v -> {
                     String number = textView.getText().toString();
                     Toast.makeText(playBingo.this, "Clicked: " + number, Toast.LENGTH_SHORT).show();
 
-                    // Navigate to quest activity
+
                     Intent intent = new Intent(playBingo.this, quest.class);
                     intent.putExtra("inputNumber", number);
                     startActivity(intent);
