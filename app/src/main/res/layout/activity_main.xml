@@ -6,22 +6,5 @@
     android:padding="16dp">
 
 
-    <GridLayout
-        android:id="@+id/lettersLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:rowCount="1"
-        android:columnCount="5"
-        android:layout_gravity="center"
-        android:paddingBottom="8dp">
-    </GridLayout>
 
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:rowCount="5"
-        android:columnCount="5"
-        android:layout_gravity="center" />
 </LinearLayout>
