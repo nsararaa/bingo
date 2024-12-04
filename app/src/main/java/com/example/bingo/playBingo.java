@@ -27,40 +27,35 @@ public class playBingo extends AppCompatActivity {
     private static final int QUEST_REQUEST_CODE = 1;
     private HashMap<String, Integer> questionStates; // Keeps track of clicked questions
     private TextView lastClickedTextView; // To update the color after returning
+    private String[][] questionGrid; // Stores the 5x5 question mapping
+    List<Question> questions;
+    private TextView[][] gridTextViews; // Store references to grid TextViews
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Complete game", Toast.LENGTH_SHORT).show();
+    }
 
-    void addBingoLetters(){
-
-
-
-// Add "BINGO" letters to the lettersLayout
+    void addBingoLetters() {
         GridLayout lettersLayout = findViewById(R.id.lettersLayout);
         String[] bingoLetters = {"B", "I", "N", "G", "O"};
         for (String letter : bingoLetters) {
             TextView letterView = new TextView(this);
-
-            // Set properties for each letter
             letterView.setText(letter);
             letterView.setTextSize(24);
-
             letterView.setGravity(android.view.Gravity.CENTER);
             letterView.setBackgroundColor(Color.TRANSPARENT);
-            letterView.setTypeface(null, Typeface.BOLD);  // Set text to bold
+            letterView.setTypeface(null, Typeface.BOLD);
 
-            // Set layout parameters
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = (int) (getResources().getDisplayMetrics().density * 75); // Same width as EditText
+            params.width = (int) (getResources().getDisplayMetrics().density * 75);
             params.height = GridLayout.LayoutParams.WRAP_CONTENT;
             params.setMargins(8, 8, 8, 8);
             letterView.setLayoutParams(params);
 
-            // Add letter to lettersLayout
-            lettersLayout.addView(letterView);  // Corrected line
+            lettersLayout.addView(letterView);
         }
-
     }
-
-    List<Question> questions;
 
     void loadQuestions() {
         questions = new ArrayList<>();
@@ -69,31 +64,24 @@ public class playBingo extends AppCompatActivity {
             StringBuilder jsonBuilder = new StringBuilder();
             String line;
 
-            // read .json file
             while ((line = reader.readLine()) != null) {
                 jsonBuilder.append(line);
             }
 
-            //string ->json
             String jsonString = jsonBuilder.toString();
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            //loop quests in .json
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
                 String questionText = jsonObject.getString("questionText");
                 JSONArray optionsArray = jsonObject.getJSONArray("options");
                 String[] options = new String[optionsArray.length()];
 
-                //options converted to array
                 for (int j = 0; j < optionsArray.length(); j++) {
                     options[j] = optionsArray.getString(j);
                 }
 
                 int correctAnswerIndex = jsonObject.getInt("correctAnswerIndex");
-
-                //add to list
                 questions.add(new Question(questionText, options, correctAnswerIndex));
             }
         } catch (Exception e) {
@@ -101,31 +89,14 @@ public class playBingo extends AppCompatActivity {
         }
     }
 
-    void passToQuest(TextView textView ){
-        textView.setOnClickListener(v -> {
-            String number = textView.getText().toString();
-            int questionIndex = Integer.parseInt(number) - 1; // Convert to 0-based index
-
-            if (questionIndex >= 0 && questionIndex < questions.size()) {
-                Question selectedQuestion = questions.get(questionIndex);
-
-                Intent intent = new Intent(playBingo.this, quest.class);
-                // Pass question data via intent
-                intent.putExtra("questionText", selectedQuestion.getQuestionText());
-                intent.putExtra("options", selectedQuestion.getOptions());
-                intent.putExtra("correctAnswerIndex", selectedQuestion.getCorrectAnswerIndex());
-                startActivity(intent);
-            } else {
-                Toast.makeText(playBingo.this, "No question for this number", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_bingo);
 
-        questionStates = new HashMap<>(); // Initialize tracking map
+        questionStates = new HashMap<>();
+        questionGrid = (String[][]) getIntent().getSerializableExtra("numbers");
+        gridTextViews = new TextView[5][5];
         loadQuestions();
 
         if (questions == null || questions.isEmpty()) {
@@ -134,15 +105,13 @@ public class playBingo extends AppCompatActivity {
         }
 
         GridLayout gridLayout = findViewById(R.id.gridLayout);
-        String[][] numbers = (String[][]) getIntent().getSerializableExtra("numbers");
-
         addBingoLetters();
 
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 TextView textView = new TextView(this);
+                gridTextViews[row][col] = textView;
 
-                // Layout/UI parameters
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
@@ -151,8 +120,7 @@ public class playBingo extends AppCompatActivity {
                 params.setMargins(8, 8, 8, 8);
                 textView.setLayoutParams(params);
 
-                // TextView properties
-                String number = numbers[row][col];
+                final String number = questionGrid[row][col];
                 textView.setText(number);
                 textView.setGravity(android.view.Gravity.CENTER);
                 textView.setBackgroundResource(R.drawable.round);
@@ -161,30 +129,23 @@ public class playBingo extends AppCompatActivity {
                 textView.setPadding(16, 16, 16, 16);
 
                 textView.setOnClickListener(v -> {
-                    // Check if the question has already been clicked
                     if (questionStates.containsKey(number)) {
                         Toast.makeText(playBingo.this, "This question is already answered.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    lastClickedTextView = textView; // Save reference for color update
+                    lastClickedTextView = textView;
 
                     Intent intent = new Intent(playBingo.this, quest.class);
                     Question question = questions.get(Integer.parseInt(number) - 1);
                     intent.putExtra("questionText", question.getQuestionText());
                     intent.putExtra("options", question.getOptions());
                     intent.putExtra("correctAnswerIndex", question.getCorrectAnswerIndex());
-                    intent.putExtra("questionNumber", number); // Pass question number
+                    intent.putExtra("questionNumber", number);
                     startActivityForResult(intent, QUEST_REQUEST_CODE);
                 });
 
                 gridLayout.addView(textView);
-
-                if(isBINGO()){
-
-                    Intent i = new Intent(playBingo.this, BINGOhit.class);
-                    startActivity(i);
-                }
             }
         }
     }
@@ -197,46 +158,43 @@ public class playBingo extends AppCompatActivity {
             String questionNumber = data.getStringExtra("questionNumber");
             boolean answeredCorrectly = data.getBooleanExtra("answeredCorrectly", false);
 
-
             questionStates.put(questionNumber, answeredCorrectly ? 1 : 0);
-
-            // Log the current state of the question states
-            Log.d("+++++++++++++++++++++++++++++++++++++++++", "Updated states: " + questionStates.toString());
-
+            Log.d("QuestionStates", "Updated states: " + questionStates.toString());
 
             if (lastClickedTextView != null) {
-                if (answeredCorrectly) {
-                    lastClickedTextView.setBackgroundResource(R.drawable.round_g);
-                } else {
-                    lastClickedTextView.setBackgroundResource(R.drawable.round_grey);
-                }
+                lastClickedTextView.setBackgroundResource(answeredCorrectly ? R.drawable.round_g : R.drawable.round_grey);
                 lastClickedTextView.invalidate();
-                lastClickedTextView.refreshDrawableState();
+            }
+
+            if (isBINGO()) {
+                Intent i = new Intent(playBingo.this, BINGOhit.class);
+                startActivity(i);
             }
         }
     }
 
-
     private boolean isBINGO() {
-        //row
+        // Check rows
         for (int row = 0; row < 5; row++) {
             boolean rowComplete = true;
             for (int col = 0; col < 5; col++) {
-                String questionNumber = getQuestionNumber(row, col);
-                if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                String number = questionGrid[row][col];
+                Integer state = questionStates.get(number);
+                if (state == null || state != 1) {
                     rowComplete = false;
                     break;
                 }
             }
-            if (rowComplete) return true; //row i bingo hit
+            if (rowComplete) return true;
         }
 
-        // cols
+        // Check columns
         for (int col = 0; col < 5; col++) {
             boolean colComplete = true;
             for (int row = 0; row < 5; row++) {
-                String questionNumber = getQuestionNumber(row, col);
-                if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                String number = questionGrid[row][col];
+                Integer state = questionStates.get(number);
+                if (state == null || state != 1) {
                     colComplete = false;
                     break;
                 }
@@ -247,31 +205,25 @@ public class playBingo extends AppCompatActivity {
         // Check diagonal (top-left to bottom-right)
         boolean diagonal1Complete = true;
         for (int i = 0; i < 5; i++) {
-            String questionNumber = getQuestionNumber(i, i); // Diagonal from top-left to bottom-right
-            if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+            String number = questionGrid[i][i];
+            Integer state = questionStates.get(number);
+            if (state == null || state != 1) {
                 diagonal1Complete = false;
                 break;
             }
         }
-        if (diagonal1Complete) return true; // Bingo in this diagonal
+        if (diagonal1Complete) return true;
 
         // Check diagonal (top-right to bottom-left)
         boolean diagonal2Complete = true;
         for (int i = 0; i < 5; i++) {
-            String questionNumber = getQuestionNumber(i, 4 - i); // Diagonal from top-right to bottom-left
-            if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+            String number = questionGrid[i][4-i];
+            Integer state = questionStates.get(number);
+            if (state == null || state != 1) {
                 diagonal2Complete = false;
                 break;
             }
         }
-        if (diagonal2Complete) return true; // Bingo in this diagonal
-
-        return false;
-    }
-
-    private String getQuestionNumber(int row, int col) {
-        // Assuming your number grid is passed as an extra in the Intent
-        String[][] numbers = (String[][]) getIntent().getSerializableExtra("numbers");
-        return numbers[row][col];
+        return diagonal2Complete;
     }
 }

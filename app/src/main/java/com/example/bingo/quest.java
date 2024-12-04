@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class quest extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,13 @@ public class quest extends AppCompatActivity {
                 optionButtons[i].setVisibility(View.GONE);//if less than 4 options (shouldnt go into this)
             }
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // Prevent going back unless explicitly allowed
+        Toast.makeText(this, "Select an answer", Toast.LENGTH_SHORT).show();
     }
 
     //toast for correct/incorrect
