@@ -42,7 +42,7 @@ public class playBingo extends AppCompatActivity {
             // Set properties for each letter
             letterView.setText(letter);
             letterView.setTextSize(24);
-            // letterView.setTextColor(Color.BLUE);  // Set text color to blue
+
             letterView.setGravity(android.view.Gravity.CENTER);
             letterView.setBackgroundColor(Color.TRANSPARENT);
             letterView.setTypeface(null, Typeface.BOLD);  // Set text to bold

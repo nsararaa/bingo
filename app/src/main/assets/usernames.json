@@ -1,0 +1,42 @@
+[
+    {
+        "username": "panda123",
+        "password": "panda"
+    },
+    {
+        "username": "lion456",
+        "password": "lion"
+    },
+    {
+        "username": "tiger789",
+        "password": "tiger"
+    },
+    {
+        "username": "eagle101",
+        "password": "eagle"
+    },
+    {
+        "username": "shark202",
+        "password": "shark"
+    },
+    {
+        "username": "wolf303",
+        "password": "wolf"
+    },
+    {
+        "username": "hawk404",
+        "password": "hawk"
+    },
+    {
+        "username": "bear505",
+        "password": "bear"
+    },
+    {
+        "username": "fox606",
+        "password": "fox"
+    },
+    {
+        "username": "deer707",
+        "password": "deer"
+    }
+]
