@@ -46,9 +46,10 @@ public class playBingo extends AppCompatActivity {
             letterView.setGravity(android.view.Gravity.CENTER);
             letterView.setBackgroundColor(Color.TRANSPARENT);
             letterView.setTypeface(null, Typeface.BOLD);
+            letterView.setTextColor(Color.parseColor("#9DB4C0"));
 
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = (int) (getResources().getDisplayMetrics().density * 75);
+            params.width = (int) (getResources().getDisplayMetrics().density * 70);
             params.height = GridLayout.LayoutParams.WRAP_CONTENT;
             params.setMargins(8, 8, 8, 8);
             letterView.setLayoutParams(params);
@@ -115,16 +116,19 @@ public class playBingo extends AppCompatActivity {
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
-                params.width = (int) getResources().getDisplayMetrics().density * 95;
-                params.height = (int) getResources().getDisplayMetrics().density * 95;
+                params.width = (int) getResources().getDisplayMetrics().density * 87;
+                params.height = (int) getResources().getDisplayMetrics().density * 87;
                 params.setMargins(8, 8, 8, 8);
                 textView.setLayoutParams(params);
 
+
                 final String number = questionGrid[row][col];
+                textView.setTypeface(null, Typeface.BOLD);
                 textView.setText(number);
                 textView.setGravity(android.view.Gravity.CENTER);
                 textView.setBackgroundResource(R.drawable.round);
-                textView.setTextColor(Color.WHITE);
+                //textView.setTextColor(Color.WHITE);
+                textView.setTextColor(Color.parseColor("#253237"));
                 textView.setTextSize(16);
                 textView.setPadding(16, 16, 16, 16);
 

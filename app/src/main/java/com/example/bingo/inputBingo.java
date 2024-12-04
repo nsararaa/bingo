@@ -28,6 +28,7 @@ public class inputBingo extends AppCompatActivity {
             // Set properties for each letter
             letterView.setText(letter);
             letterView.setTextSize(24);
+            letterView.setTextColor(Color.parseColor("#9DB4C0"));
             // letterView.setTextColor(Color.BLUE);  // Set text color to blue
             letterView.setGravity(android.view.Gravity.CENTER);
             letterView.setBackgroundColor(Color.TRANSPARENT);
@@ -35,7 +36,7 @@ public class inputBingo extends AppCompatActivity {
 
             // Set layout parameters
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = (int) (getResources().getDisplayMetrics().density * 75); // Same width as EditText
+            params.width = (int) (getResources().getDisplayMetrics().density * 70); // Same width as EditText
             params.height = GridLayout.LayoutParams.WRAP_CONTENT;
             params.setMargins(8, 8, 8, 8);
             letterView.setLayoutParams(params);
@@ -69,8 +70,8 @@ public class inputBingo extends AppCompatActivity {
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
-                params.width = (int) getResources().getDisplayMetrics().density * 95; // 50dp width
-                params.height = (int) getResources().getDisplayMetrics().density * 95; // 50dp height
+                params.width = (int) getResources().getDisplayMetrics().density * 87; // 50dp width
+                params.height = (int) getResources().getDisplayMetrics().density * 87; // 50dp height
                 params.setMargins(8, 8, 8, 8);
                 editText.setLayoutParams(params);
 
@@ -79,7 +80,9 @@ public class inputBingo extends AppCompatActivity {
                 editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                 editText.setGravity(android.view.Gravity.CENTER);
                 editText.setBackgroundResource(R.drawable.round);
-                editText.setTextColor(Color.WHITE);
+                //editText.setTextColor(Color.WHITE);
+                editText.setTypeface(null, Typeface.BOLD);
+                editText.setTextColor(Color.parseColor("#253237"));
                 editText.setTextSize(16);
                 editText.setPadding(16, 16, 16, 16);
 

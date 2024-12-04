@@ -5,18 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#253237">
 
 
     <TextView
         android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is the capital of France?"
+        android:text=""
         android:textSize="20sp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#9DB4C0"
+        />
 
 
     <Button
@@ -24,26 +27,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Paris"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#9DB4C0"
+        android:textColor="#253237"
+        />
 
     <Button
         android:id="@+id/option2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="London"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#9DB4C0"
+        android:textColor="#253237"
+        />
 
     <Button
         android:id="@+id/option3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Berlin"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#9DB4C0"
+        android:textColor="#253237"
+        />
 
     <Button
         android:id="@+id/option4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Madrid" />
+        android:text="Madrid"
+        android:backgroundTint="#9DB4C0"
+        android:textColor="#253237"
+        />
 
 </LinearLayout>

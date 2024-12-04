@@ -5,38 +5,80 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".inputBingo">
+    tools:context=".inputBingo"
+    android:background="#253237">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
 
-        <GridLayout
-            android:id="@+id/lettersLayout"
+        <!-- Header Title
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bingo Input"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium" />-->
+
+        <!-- Letters Layout in a CardView -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:rowCount="1"
-            android:columnCount="5"
-            android:layout_gravity="center"
-            android:paddingBottom="8dp">
-        </GridLayout>
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#37474F"
+            android:layout_marginBottom="16dp">
 
-        <GridLayout
-            android:id="@+id/gridLayout"
+            <GridLayout
+                android:id="@+id/lettersLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="1"
+                android:columnCount="5"
+                android:padding="8dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Main Grid Layout -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:rowCount="5"
-            android:columnCount="5"
-            android:padding="8dp" />
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#37474F"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp">
 
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:rowCount="5"
+                android:columnCount="5"
+                android:padding="8dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Set Grid Button -->
         <Button
             android:id="@+id/setGridButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Set Grid"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:paddingVertical="12dp"
+            android:backgroundTint="#546E7A"
+            android:textColor="#FFFFFF"
+            android:elevation="6dp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="8dp" />
 
     </LinearLayout>
 
