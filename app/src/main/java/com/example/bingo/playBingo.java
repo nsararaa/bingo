@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 public class playBingo extends AppCompatActivity {
 
     private static final int QUEST_REQUEST_CODE = 1;
-    private HashMap<String, Boolean> questionStates; // Keeps track of clicked questions
+    private HashMap<String, Integer> questionStates; // Keeps track of clicked questions
     private TextView lastClickedTextView; // To update the color after returning
 
 
@@ -178,29 +179,99 @@ public class playBingo extends AppCompatActivity {
                 });
 
                 gridLayout.addView(textView);
+
+                if(isBINGO()){
+
+                    Intent i = new Intent(playBingo.this, BINGOhit.class);
+                    startActivity(i);
+                }
             }
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == QUEST_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             String questionNumber = data.getStringExtra("questionNumber");
             boolean answeredCorrectly = data.getBooleanExtra("answeredCorrectly", false);
 
-            // Mark question as clicked
-            questionStates.put(questionNumber, answeredCorrectly);
 
-            // Update TextView color
+            questionStates.put(questionNumber, answeredCorrectly ? 1 : 0);
+
+            // Log the current state of the question states
+            Log.d("+++++++++++++++++++++++++++++++++++++++++", "Updated states: " + questionStates.toString());
+
+
             if (lastClickedTextView != null) {
                 if (answeredCorrectly) {
-                    lastClickedTextView.setBackgroundColor(Color.GREEN);
+                    lastClickedTextView.setBackgroundResource(R.drawable.round_g);
                 } else {
-                    lastClickedTextView.setBackgroundColor(Color.GRAY);
+                    lastClickedTextView.setBackgroundResource(R.drawable.round_grey);
                 }
+                lastClickedTextView.invalidate();
+                lastClickedTextView.refreshDrawableState();
             }
         }
+    }
+
+
+    private boolean isBINGO() {
+        //row
+        for (int row = 0; row < 5; row++) {
+            boolean rowComplete = true;
+            for (int col = 0; col < 5; col++) {
+                String questionNumber = getQuestionNumber(row, col);
+                if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                    rowComplete = false;
+                    break;
+                }
+            }
+            if (rowComplete) return true; //row i bingo hit
+        }
+
+        // cols
+        for (int col = 0; col < 5; col++) {
+            boolean colComplete = true;
+            for (int row = 0; row < 5; row++) {
+                String questionNumber = getQuestionNumber(row, col);
+                if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                    colComplete = false;
+                    break;
+                }
+            }
+            if (colComplete) return true;
+        }
+
+        // Check diagonal (top-left to bottom-right)
+        boolean diagonal1Complete = true;
+        for (int i = 0; i < 5; i++) {
+            String questionNumber = getQuestionNumber(i, i); // Diagonal from top-left to bottom-right
+            if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                diagonal1Complete = false;
+                break;
+            }
+        }
+        if (diagonal1Complete) return true; // Bingo in this diagonal
+
+        // Check diagonal (top-right to bottom-left)
+        boolean diagonal2Complete = true;
+        for (int i = 0; i < 5; i++) {
+            String questionNumber = getQuestionNumber(i, 4 - i); // Diagonal from top-right to bottom-left
+            if (questionStates.getOrDefault(questionNumber, 0) != 1) {
+                diagonal2Complete = false;
+                break;
+            }
+        }
+        if (diagonal2Complete) return true; // Bingo in this diagonal
+
+        return false;
+    }
+
+    private String getQuestionNumber(int row, int col) {
+        // Assuming your number grid is passed as an extra in the Intent
+        String[][] numbers = (String[][]) getIntent().getSerializableExtra("numbers");
+        return numbers[row][col];
     }
 }
