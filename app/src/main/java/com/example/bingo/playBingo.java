@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.bingo.Question;
@@ -21,6 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class playBingo extends AppCompatActivity {
+
+    private static final int QUEST_REQUEST_CODE = 1;
+    private HashMap<String, Boolean> questionStates; // Keeps track of clicked questions
+    private TextView lastClickedTextView; // To update the color after returning
 
 
     void addBingoLetters(){
@@ -114,46 +119,87 @@ public class playBingo extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_bingo);
 
-        GridLayout gridLayout = findViewById(R.id.gridLayout);
+        questionStates = new HashMap<>(); // Initialize tracking map
+        loadQuestions();
 
-        //numbers passed from intent 1 (input bingo)
+        if (questions == null || questions.isEmpty()) {
+            Toast.makeText(this, "Failed to load questions.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        GridLayout gridLayout = findViewById(R.id.gridLayout);
         String[][] numbers = (String[][]) getIntent().getSerializableExtra("numbers");
 
-        loadQuestions();
         addBingoLetters();
 
-        //grid layout
         for (int row = 0; row < 5; row++) {
             for (int col = 0; col < 5; col++) {
                 TextView textView = new TextView(this);
 
-                //layout//ui parameters
+                // Layout/UI parameters
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.rowSpec = GridLayout.spec(row);
                 params.columnSpec = GridLayout.spec(col);
-                params.width = (int) getResources().getDisplayMetrics().density * 95; // 50dp width
-                params.height = (int) getResources().getDisplayMetrics().density * 95; // 50dp height
+                params.width = (int) getResources().getDisplayMetrics().density * 95;
+                params.height = (int) getResources().getDisplayMetrics().density * 95;
                 params.setMargins(8, 8, 8, 8);
                 textView.setLayoutParams(params);
 
-                //txt view properties
-                textView.setText(numbers[row][col]);
+                // TextView properties
+                String number = numbers[row][col];
+                textView.setText(number);
                 textView.setGravity(android.view.Gravity.CENTER);
                 textView.setBackgroundResource(R.drawable.round);
                 textView.setTextColor(Color.WHITE);
                 textView.setTextSize(16);
                 textView.setPadding(16, 16, 16, 16);
 
+                textView.setOnClickListener(v -> {
+                    // Check if the question has already been clicked
+                    if (questionStates.containsKey(number)) {
+                        Toast.makeText(playBingo.this, "This question is already answered.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-               passToQuest(textView);
+                    lastClickedTextView = textView; // Save reference for color update
+
+                    Intent intent = new Intent(playBingo.this, quest.class);
+                    Question question = questions.get(Integer.parseInt(number) - 1);
+                    intent.putExtra("questionText", question.getQuestionText());
+                    intent.putExtra("options", question.getOptions());
+                    intent.putExtra("correctAnswerIndex", question.getCorrectAnswerIndex());
+                    intent.putExtra("questionNumber", number); // Pass question number
+                    startActivityForResult(intent, QUEST_REQUEST_CODE);
+                });
 
                 gridLayout.addView(textView);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == QUEST_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            String questionNumber = data.getStringExtra("questionNumber");
+            boolean answeredCorrectly = data.getBooleanExtra("answeredCorrectly", false);
+
+            // Mark question as clicked
+            questionStates.put(questionNumber, answeredCorrectly);
+
+            // Update TextView color
+            if (lastClickedTextView != null) {
+                if (answeredCorrectly) {
+                    lastClickedTextView.setBackgroundColor(Color.GREEN);
+                } else {
+                    lastClickedTextView.setBackgroundColor(Color.GRAY);
+                }
             }
         }
     }
