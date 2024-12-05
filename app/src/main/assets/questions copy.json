@@ -1,0 +1,52 @@
+[
+    {
+        "questionText": "What is the capital of France?",
+        "options": ["Paris", "London", "Berlin", "Madrid"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which data structure uses LIFO?",
+        "options": ["Stack", "Queue", "Tree", "Graph"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the largest planet in our solar system?",
+        "options": ["Earth", "Jupiter", "Saturn", "Mars"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "Which language is primarily used for Android app development?",
+        "options": ["Java", "Python", "C++", "Ruby"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "What is the chemical symbol for water?",
+        "options": ["O2", "H2O", "CO2", "NaCl"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "Who developed the theory of relativity?",
+        "options": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+        "correctAnswerIndex": 1
+    },
+    {
+        "questionText": "Which planet is known as the Red Planet?",
+        "options": ["Mars", "Venus", "Mercury", "Jupiter"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which of these is a JavaScript framework?",
+        "options": ["React", "Django", "Spring", "Laravel"],
+        "correctAnswerIndex": 0
+    },
+    {
+        "questionText": "Which of the following is a prime number?",
+        "options": ["4", "6", "7", "9"],
+        "correctAnswerIndex": 2
+    },
+    {
+        "questionText": "Who is the author of 'Harry Potter'?",
+        "options": ["J.K. Rowling", "George R.R. Martin", "J.R.R. Tolkien", "Stephen King"],
+        "correctAnswerIndex": 0
+    }
+]

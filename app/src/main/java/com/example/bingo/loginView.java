@@ -61,6 +61,7 @@ public class loginView extends AppCompatActivity {
 
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(loginView.this, inputBingo.class);
+                i.putExtra("USERNAME", username);
                 startActivity(i);
             } else {
                 Toast.makeText(this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();

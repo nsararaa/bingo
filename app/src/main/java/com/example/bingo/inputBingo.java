@@ -63,6 +63,8 @@ public class inputBingo extends AppCompatActivity {
 
         addBingoLetters();
 
+        String username = getIntent().getStringExtra("USERNAME");
+
 
 
         for (int row = 0; row < 5; row++) {
@@ -118,6 +120,7 @@ public class inputBingo extends AppCompatActivity {
             // Pass the 2D array to the next activity
             Intent intent = new Intent(inputBingo.this, playBingo.class);
             intent.putExtra("numbers", numbers);
+            intent.putExtra("USERNAME", username);
             startActivity(intent);
         });
     }

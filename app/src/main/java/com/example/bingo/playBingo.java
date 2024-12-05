@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.example.bingo.Question;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +38,14 @@ public class playBingo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "Complete game", Toast.LENGTH_SHORT).show();
+    }
+
+    void addToDatebase(){
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
     }
 
     void addBingoLetters() {
@@ -91,7 +101,7 @@ public class playBingo extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         EdgeToEdge.enable(this);
@@ -107,6 +117,8 @@ public class playBingo extends AppCompatActivity {
             Toast.makeText(this, "Failed to load questions.", Toast.LENGTH_SHORT).show();
             return;
         }
+         username = getIntent().getStringExtra("USERNAME");
+
 
         GridLayout gridLayout = findViewById(R.id.gridLayout);
         addBingoLetters();
